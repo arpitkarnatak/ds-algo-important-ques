@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+import math
 sys.stdin = open('../input.txt','r')  ##INPUT FILE NAME HERE
 sys.stdout = open('../output.txt','w')  ##OUTPUT FILE NAME HERE
 def N_Meetings(start, end): 
@@ -59,6 +60,29 @@ def IslandSurvival(days_to_survive, max_food, req_food):
 #a,b,c = map(int,input().split())
 #print(IslandSurvival(a,b,c))
 
+def MaxProduct(arr):
+    #https://www.geeksforgeeks.org/python-multiply-numbers-list-3-different-ways/
+    ze, po, neg = [], [], []
+    for i in arr:
+        if i<0:
+            neg.append(i)
+        elif i>0:
+            po.append(i)
+        else:
+            ze.append(i)
 
+    neg.sort()
 
-## print(MaxProduct(arr))
+    if neg != [] and len(neg)>1:
+        ans = math.prod(neg[ :len(neg)//2+1 ])
+    else:
+        ans = -neg[0]
+
+    if po != []:
+        ans *= math.prod(po)
+
+    if ze != [] and po == []:
+        ans = min(0, ans)
+    return ans
+
+#print(MaxProduct([-1,0,6,-3,6,2]))
